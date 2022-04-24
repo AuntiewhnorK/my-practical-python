@@ -4,7 +4,11 @@ Practical Python - 1.2 Sears Tower vs Dollar Bills
 by Auntiewhnor Kpolie
 Date: 04/25/2022
 
-Problem: One morning, you go out and place a dollar bill on the sidewalk by the Sears tower in Chicago. Each day thereafter, you go out and double the number of bills. How long does it take for the stack of bills to exceed the height of the tower?
+Problem: One morning, you go out and place a dollar bill 
+on the sidewalk by the Sears tower in Chicago. 
+Each day thereafter, you go out and double the number of bills. 
+How long does it take for the stack of bills
+to exceed the height of the tower?
 """
 
 # Variables:
