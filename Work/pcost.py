@@ -10,8 +10,8 @@ cost to purchase all the shares in the portfolio.
 
 Exercise 1.30 - make pcost.py a function
 """
-import csv, sys
-from fileinput import filename
+import csv
+import sys
 
 
 def portfolio_cost(filename):
@@ -54,9 +54,9 @@ def portfolio_cost(filename):
 # ex: python pcost.py Data/portfolio.csv
 if len(sys.argv) == 2:
     # sys.argv[0] is the name of the script (pcost.py)
-    filename = sys.argv[1]  # filename to be passed
+    file = sys.argv[1]  # filename to be passed
 else:
-    filename = "Data/portfolio.csv"
+    file = "Data/portfolio.csv"
 
-cost = portfolio_cost(filename)
+cost = portfolio_cost(file)
 print(f"Total cost {cost}")
