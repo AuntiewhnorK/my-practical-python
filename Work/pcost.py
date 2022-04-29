@@ -10,9 +10,6 @@ cost to purchase all the shares in the portfolio.
 """
 
 # skip header
-from matplotlib.pyplot import flag
-
-
 f = open("Data/portfolio.csv", "rt")
 header = next(f)
 # header: names, number of shares, price
