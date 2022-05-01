@@ -43,25 +43,44 @@ def read_prices(file):
             try:
                 prices[row[0]] = float(row[1])
             except IndexError:
-                print('No data')
+                continue
 
     return prices
 
 
-# Exercise 2.7
+# Exercise 2.7, 2.9
+report_list = []
 
-def calculation(stock_portfolio, stock_price):
-    total_value = 0.0
-    value = {}
+
+def make_report(stock_portfolio, stock_price):
+    # total_value = 0.0
+
     for element in stock_portfolio:
-        # value of portfolio: owned shares * current stock price, add up for total
         name = element['name']
         shares = element['shares']
         purchase_price = element['price']
-        total_value += (shares * purchase_price)
+        # total_value += (shares * purchase_price)
 
-        # calculate gain/loss for each stock
         current_price = stock_price[name]
-        gain_loss = ((current_price - purchase_price) / purchase_price) * 100
-        value[name] = gain_loss
-    return total_value, value
+        # gain_loss = ((current_price - purchase_price) / purchase_price) * 100
+        change = current_price - purchase_price
+        data = (name, shares, current_price, change)
+        report_list.append(data)
+    return report_list
+
+
+# set files for report
+file_portfolio = read_portfolio('Data/portfolio.csv')
+file_prices = read_prices('Data/prices.csv')
+
+# Making a report
+headers = ('Name', 'Shares', 'Prices', 'Change')
+
+make_report(file_portfolio, file_prices)
+print('%10s %10s %10s %10s' % headers)
+print('%10s' % '---------- ' * len(headers))  # separator
+
+for names, share_num, price_num, change_num in report_list:
+    print(f'{names:>10s} {share_num:>10d}',
+          '{:>10}'.format("${:.2f}".format(price_num)),
+          f'{change_num:>10.2f}')
