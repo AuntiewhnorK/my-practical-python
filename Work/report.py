@@ -47,6 +47,21 @@ def read_prices(file):
 
     return prices
 
+
 # Exercise 2.7
-# TODO: use list of stocks (portfolio) and dictionary of (prices)
-#  to calculate gain and loss for stocks
+
+def calculation(stock_portfolio, stock_price):
+    total_value = 0.0
+    value = {}
+    for element in stock_portfolio:
+        # value of portfolio: owned shares * current stock price, add up for total
+        name = element['name']
+        shares = element['shares']
+        purchase_price = element['price']
+        total_value += (shares * purchase_price)
+
+        # calculate gain/loss for each stock
+        current_price = stock_price[name]
+        gain_loss = ((current_price - purchase_price) / purchase_price) * 100
+        value[name] = gain_loss
+    return total_value, value
