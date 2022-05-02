@@ -15,39 +15,26 @@ import sys
 
 
 def portfolio_cost(filename):
-    # skip header
-    with open(filename, "rt") as f:
-        # use csv reader
+    """
+    Computes total cost of portfolio file
+    """
+    total_cost = 0.0
+    with open(filename) as f:
         rows = csv.reader(f)
-        # header: names, number of shares, price
-        header = next(f)
-
-        # create list to keep purchase price of shares
-        shares = []
-
-        # the price column is in a string and has a newline:
-        # ex: '32.20\n'
-
-        # need to replace the newline,
-        # split each line into a list using .split()
-        # take the last element (price)
-        # multiply by share number
-
-        for row in rows:
-            # catch missing data
+        header = next(rows)  # header: names, number of shares, price
+        for row_num, row in enumerate(rows, start=1):
+            record = dict(zip(header, row))
+            # catch missing data and errors in int(), float() conversion
             try:
-                # csv automatically parses
-                # line.replace("\n", "")
-                # new_line = line.split(",")
-                share_price = int(row[1]) * float(row[2])
-                shares.append(share_price)
+                num_shares = int(record['shares'])
+                price = float(record['price'])
+                total_cost += num_shares * price
             except ValueError:
-                print("Couldn't parse", row)
+                print(f"Couldn't parse row {row_num}: {row}")
 
         f.close()
         # add up every price in the list
-        total = round(sum(shares), 2)
-    return total
+    return round(total_cost, 2)
 
 
 # command line usage:

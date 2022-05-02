@@ -19,9 +19,12 @@ def read_portfolio(file):
     with open(file, 'rt') as f:
         rows = csv.reader(f)
         header = next(rows)  # header: names, shares, price list
-        for row in rows:
+        for row_number, row in enumerate(rows, start=1):
+            record = dict(zip(header, row))
             # holding = (row[0], int(row[1]), float(row[2])) using tuple
-            holding = {header[0]: row[0], header[1]: int(row[1]), header[2]: float(row[2])}
+            holding = {'name': record['name'],
+                       'shares': int(record['shares']),
+                       'price': float(record['price'])}
             portfolio.append(holding)
 
     return portfolio
@@ -70,7 +73,7 @@ def make_report(stock_portfolio, stock_price):
 
 
 # set files for report
-file_portfolio = read_portfolio('Data/portfolio.csv')
+file_portfolio = read_portfolio('Data/portfoliodate.csv')
 file_prices = read_prices('Data/prices.csv')
 
 # Making a report
