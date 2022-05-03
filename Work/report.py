@@ -10,13 +10,14 @@ and puts in a list of tuples.
 """
 import csv
 
-portfolio = []  # Exercise 2.5
+
+# Exercise 2.5
 
 
 def read_portfolio(file):
     """Returns portfolio in a list of dictionaries"""
-
-    with open(file, 'rt') as f:
+    portfolio = []
+    with open(file) as f:
         rows = csv.reader(f)
         header = next(rows)  # header: names, shares, price list
         for row_number, row in enumerate(rows, start=1):
@@ -30,15 +31,15 @@ def read_portfolio(file):
     return portfolio
 
 
-prices = {}  # Exercise 2.6
+# Exercise 2.6
 
 
 def read_prices(file):
     """Opens a file and returns a dictionary
     where the keys and values are stock names
     and current stock price"""
-
-    with open(file, 'r') as f:
+    prices = {}
+    with open(file) as f:
         rows = csv.reader(f)
         for row in rows:
             # can also use if statement
@@ -52,12 +53,11 @@ def read_prices(file):
 
 
 # Exercise 2.7, 2.9
-report_list = []
 
 
 def make_report(stock_portfolio, stock_price):
     # total_value = 0.0
-
+    report_list = []
     for element in stock_portfolio:
         name = element['name']
         shares = element['shares']
@@ -79,11 +79,11 @@ file_prices = read_prices('Data/prices.csv')
 # Making a report
 headers = ('Name', 'Shares', 'Prices', 'Change')
 
-make_report(file_portfolio, file_prices)
+report = make_report(file_portfolio, file_prices)
 print('%10s %10s %10s %10s' % headers)
 print('%10s' % '---------- ' * len(headers))  # separator
 
-for names, share_num, price_num, change_num in report_list:
+for names, share_num, price_num, change_num in report:
     print(f'{names:>10s} {share_num:>10d}',
           '{:>10}'.format("${:.2f}".format(price_num)),
           f'{change_num:>10.2f}')
