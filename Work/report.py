@@ -1,12 +1,13 @@
 """
-Practical Python 2.4 to 2.7 - Tuples and Dictionaries
+Practical Python - Tuples, Dictionaries, Functions
 
 Auntiewhnor Kpolie
-04/23/2022
+Created: 04/23/2022
+Last Edited: 05/06/2022
 
-Based off of pcost.py, this file defines a
-function that opens a given portfolio file
-and puts in a list of tuples.
+Defines a function that opens a
+portfolio file and prices file
+and prints a report.
 """
 import csv
 
@@ -23,9 +24,11 @@ def read_portfolio(file):
         for row_number, row in enumerate(rows, start=1):
             record = dict(zip(header, row))
             # holding = (row[0], int(row[1]), float(row[2])) using tuple
-            holding = {'name': record['name'],
-                       'shares': int(record['shares']),
-                       'price': float(record['price'])}
+            holding = {
+                "name": record["name"],
+                "shares": int(record["shares"]),
+                "price": float(record["price"]),
+            }
             portfolio.append(holding)
 
     return portfolio
@@ -56,12 +59,16 @@ def read_prices(file):
 
 
 def make_report(stock_portfolio, stock_price):
+    """
+    Takes in portfolio and prices file and makes
+    a report
+    """
     # total_value = 0.0
     report_list = []
     for element in stock_portfolio:
-        name = element['name']
-        shares = element['shares']
-        purchase_price = element['price']
+        name = element["name"]
+        shares = element["shares"]
+        purchase_price = element["price"]
         # total_value += (shares * purchase_price)
 
         current_price = stock_price[name]
@@ -72,18 +79,35 @@ def make_report(stock_portfolio, stock_price):
     return report_list
 
 
-# set files for report
-file_portfolio = read_portfolio('Data/portfoliodate.csv')
-file_prices = read_prices('Data/prices.csv')
+# Exercise 3.2
+def print_report(report):
+    """
+    Prints out a table
+    """
+    headers = ("Name", "Shares", "Prices", "Change")
+    print("%10s %10s %10s %10s" % headers)
+    print("%10s" % "---------- " * len(headers))  # separator
 
-# Making a report
-headers = ('Name', 'Shares', 'Prices', 'Change')
+    for names, share_num, price_num, change_num in report:
+        print(
+            f"{names:>10s} {share_num:>10d}",
+            "{:>10}".format("${:.2f}".format(price_num)),
+            f"{change_num:>10.2f}",
+        )
 
-report = make_report(file_portfolio, file_prices)
-print('%10s %10s %10s %10s' % headers)
-print('%10s' % '---------- ' * len(headers))  # separator
 
-for names, share_num, price_num, change_num in report:
-    print(f'{names:>10s} {share_num:>10d}',
-          '{:>10}'.format("${:.2f}".format(price_num)),
-          f'{change_num:>10.2f}')
+def portfolio_report(portfolio_filename, prices_filename):
+    """
+    function for report printing
+    """
+    # set files for report
+    file_portfolio = read_portfolio(portfolio_filename)
+    file_prices = read_prices(prices_filename)
+
+    # printing
+    report_final = make_report(file_portfolio, file_prices)
+    print_report(report_final)
+
+
+# single function call for reporting
+portfolio_report("Data/portfolio.csv", "Data/prices.csv")
