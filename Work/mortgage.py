@@ -1,14 +1,13 @@
 """
-Practical Python 1.7 - Calculating Mortgage 
-
+Practical Python 1.7 - Calculating Mortgage
 Auntiewhnor Kpolie
 04/27/2022
 
-Dave has decided to take out a 30-year fixed rate mortgage of $500,000 
-with Guido's Mortgage, Stock Investment, and Bitcoin trading corporation. 
+Dave has decided to take out a 30-year fixed rate mortgage of $500,000
+with Guido's Mortgage, Stock Investment, and Bitcoin trading corporation.
 The interest rate is 5% and the monthly payment is $2684.11.
 
-Calculates the total amount that Dave 
+Calculates the total amount that Dave
 will have to pay over the life of the mortgage.
 """
 
@@ -46,8 +45,8 @@ if user == "c":
             "simulator starts with extra payment) "
         )
     )
-    extra_payment_start_month = (year_start * 12) + 1
-    extra_payment_end_month = (year_start + year_end) * 12
+    extra_pay_start_month = (year_start * 12) + 1
+    extra_pay_end_month = (year_start + year_end) * 12
 
     while principal > 0:
         month += 1
@@ -55,7 +54,7 @@ if user == "c":
         principal = principal * (1 + rate / 12) - payment
         total_paid = total_paid + payment
 
-        if month >= extra_payment_start_month and month <= extra_payment_end_month:
+        if month >= extra_pay_start_month and month <= extra_pay_end_month:
             principal = principal - extra_payment
             total_paid = total_paid + extra_payment
 
