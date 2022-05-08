@@ -18,8 +18,9 @@ from fileparse import parse_csv
 def read_portfolio(file):
     """Returns portfolio in a list of dictionaries"""
 
-    return parse_csv(file, select=['name', 'shares', 'price'],
-                     types=[str, int, float])
+    with open(file) as lines:
+        return parse_csv(lines, select=['name', 'shares', 'price'],
+                         types=[str, int, float])
 
 
 # Exercise 2.6
@@ -30,7 +31,8 @@ def read_prices(file):
     where the keys and values are stock names
     and current stock price"""
 
-    return dict(parse_csv(file, types=[str, float], has_headers=False))
+    with open(file) as lines:
+        return dict(parse_csv(lines, types=[str, float], has_headers=False))
 
 
 # Exercise 2.7, 2.9
