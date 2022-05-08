@@ -11,6 +11,7 @@ and prints a report.
 """
 import csv
 from fileparse import parse_csv
+from stock import Stock
 
 # Exercise 2.5
 
@@ -19,8 +20,10 @@ def read_portfolio(file):
     """Returns portfolio in a list of dictionaries"""
 
     with open(file) as lines:
-        return parse_csv(lines, select=['name', 'shares', 'price'],
-                         types=[str, int, float])
+        portdicts = parse_csv(
+            lines, select=['name', 'shares', 'price'], types=[str, int, float])
+
+    return [Stock(d['name'], d['shares'], d['price']) for d in portdicts]
 
 
 # Exercise 2.6
@@ -46,9 +49,9 @@ def make_report(stock_portfolio, stock_price):
     # total_value = 0.0
     report_list = []
     for element in stock_portfolio:
-        name = element["name"]
-        shares = element["shares"]
-        purchase_price = element["price"]
+        name = element.name
+        shares = element.shares
+        purchase_price = element.price
         # total_value += (shares * purchase_price)
 
         current_price = stock_price[name]

@@ -22,16 +22,18 @@ def portfolio_cost(filename):
     """
     portfolio = read_portfolio(filename)
     # add up every price in the list
-    return sum([s['shares'] * s['price'] for s in portfolio])
+    return sum([s.shares * s.price for s in portfolio])
 
 
 # command line usage:
 # ex: python pcost.py Data/portfolio.csv
-if len(sys.argv) == 2:
-    # sys.argv[0] is the name of the script (pcost.py)
-    file = sys.argv[1]  # filename to be passed
-else:
-    file = "Data/portfolio.csv"
+def main(arguments):
+    if len(arguments) != 2:
+        raise SystemExit(f'Usage: {arguments[0]} ' 'portfolio_file')
+    file = arguments[1]
+    print(f"Total cost {portfolio_cost(file)}")
 
-cost = portfolio_cost(file)
-print(f"Total cost {cost}")
+
+if __name__ == '__main__':
+    import sys
+    main(sys.argv)
