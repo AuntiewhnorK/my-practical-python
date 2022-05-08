@@ -39,11 +39,14 @@ def portfolio_cost(filename):
 
 # command line usage:
 # ex: python pcost.py Data/portfolio.csv
-if len(sys.argv) == 2:
-    # sys.argv[0] is the name of the script (pcost.py)
-    file = sys.argv[1]  # filename to be passed
-else:
-    file = "Data/portfolio.csv"
 
-cost = portfolio_cost(file)
-print(f"Total cost {cost}")
+def main(arguments):
+    if len(arguments) != 2:
+        raise SystemExit(f'Usage: {arguments[0]} ' 'portfolio_file')
+    file = arguments[1]
+    print(f"Total cost {portfolio_cost(file)}")
+
+
+if __name__ == '__main__':
+    import sys
+    main(sys.argv)

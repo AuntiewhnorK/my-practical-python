@@ -108,6 +108,18 @@ def portfolio_report(portfolio_filename, prices_filename):
     report_final = make_report(file_portfolio, file_prices)
     print_report(report_final)
 
+# command line usage:
+# python/python3 report.py Data/portfolio.py Data.price.py
 
-# single function call for reporting
-portfolio_report("Data/portfolio.csv", "Data/prices.csv")
+
+def main(arguments):
+    if len(arguments) != 3:
+        raise SystemExit(f'Usage: {arguments[0]} ' 'portfile pricefile')
+
+    # single function call for reporting
+    portfolio_report(arguments[1], arguments[2])
+
+
+if __name__ == '__main__':
+    import sys
+    main(sys.argv)
