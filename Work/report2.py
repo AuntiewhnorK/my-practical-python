@@ -3,15 +3,15 @@ Practical Python - Tuples, Dictionaries, Functions
 
 Auntiewhnor Kpolie
 Created: 04/23/2022
-Last Edited: 05/06/2022
+Last Edited: 05/08/2022
 
 Defines a function that opens a
 portfolio file and prices file
 and prints a report.
 """
-import csv
 from fileparse import parse_csv
 from stock import Stock
+import tableformat
 
 # Exercise 2.5
 
@@ -63,23 +63,17 @@ def make_report(stock_portfolio, stock_price):
 
 
 # Exercise 3.2
-def print_report(report):
+def print_report(report, formatter):
     """
     Prints out a table
     """
-    headers = ("Name", "Shares", "Prices", "Change")
-    print("%10s %10s %10s %10s" % headers)
-    print("%10s" % "---------- " * len(headers))  # separator
-
-    for names, share_num, price_num, change_num in report:
-        print(
-            f"{names:>10s} {share_num:>10d}",
-            "{:>10}".format("${:.2f}".format(price_num)),
-            f"{change_num:>10.2f}",
-        )
+    formatter.headings(['Name', 'Shares', 'Price', 'Change'])
+    for names, shares, price, change in report:
+        rowdata = [names, str(shares), f'{price:0.2f}', f'{change:0.2f}']
+        formatter.row(rowdata)
 
 
-def portfolio_report(portfolio_filename, prices_filename):
+def portfolio_report(portfolio_filename, prices_filename, fmt='txt'):
     """
     function for report printing
     """
@@ -87,10 +81,22 @@ def portfolio_report(portfolio_filename, prices_filename):
     file_portfolio = read_portfolio(portfolio_filename)
     file_prices = read_prices(prices_filename)
 
-    # printing
+    # make report
     report_final = make_report(file_portfolio, file_prices)
-    print_report(report_final)
+
+    # printing
+    formatter = tableformat.create_formatter(fmt)
+    print_report(report_final, formatter)
 
 
-# single function call for reporting
-portfolio_report("Data/portfolio.csv", "Data/prices.csv")
+def main(arguments):
+    if len(arguments) != 4:
+        raise SystemExit(f'Usage: {arguments[0]} ' 'portfile pricefile format')
+
+    # single function call for reporting
+    portfolio_report(arguments[1], arguments[2], arguments[3])
+
+
+if __name__ == '__main__':
+    import sys
+    main(sys.argv)
