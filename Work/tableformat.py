@@ -71,3 +71,18 @@ def create_formatter(name):
         return HTMLTableFormatter()
     else:
         raise RuntimeError(f'unknown format {name}')
+
+
+def print_table(data, columns, formatter):
+    """
+    prints table with specified columns and formatting
+
+    Usage:
+    data = report2.read_portfolio('file')
+    formatter = create_formatter('txt')
+    print_table(data, ['col1', 'col2'], formatter)
+    """
+    formatter.headings(columns)
+    for d in data:
+        rowdata = [str(getattr(d, name)) for name in columns]
+        formatter.row(rowdata)
