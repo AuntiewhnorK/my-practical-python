@@ -59,6 +59,10 @@ class HTMLTableFormatter(TableFormatter):
         print('</tr>')
 
 
+class FormatError(Exception):
+    pass
+
+
 def create_formatter(name):
     """
     Choose formatter you want
@@ -70,7 +74,7 @@ def create_formatter(name):
     elif name == 'html':
         return HTMLTableFormatter()
     else:
-        raise RuntimeError(f'unknown format {name}')
+        raise FormatError(f'Unknown format {name}')
 
 
 def print_table(data, columns, formatter):
