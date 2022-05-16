@@ -4,6 +4,8 @@ class Stock:
     cost: returns the cost of stock
     sell: sell an amount of shares
     """
+    # restrict attributes
+    __slots__ = ('name', '_shares', 'price')
 
     def __init__(self, name, shares, price):
         self.name = name
