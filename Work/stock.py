@@ -14,6 +14,16 @@ class Stock:
         return f'Stock({self.name}, {self.shares}, {self.price})'
 
     @property
+    def shares(self):
+        return self._shares  # private attribute
+
+    @shares.setter
+    def shares(self, value):
+        if not isinstance(value, int):  # check if attribute is integer
+            raise TypeError('Expected integer')
+        self._shares = value
+
+    @property
     def cost(self):
         return self.shares * self.price
 
