@@ -22,7 +22,7 @@ def portfolio_cost(filename):
     """
     portfolio = read_portfolio(filename)
     # add up every price in the list
-    return sum([s.shares * s.price for s in portfolio])
+    return portfolio.total_cost
 
 
 # command line usage:

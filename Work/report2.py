@@ -9,6 +9,7 @@ Defines a function that opens a
 portfolio file and prices file
 and prints a report.
 """
+from portfolio import Portfolio
 from fileparse import parse_csv
 from stock import Stock
 import tableformat
@@ -23,8 +24,9 @@ def read_portfolio(file):
         portdicts = parse_csv(
             lines, select=['name', 'shares', 'price'], types=[str, int, float])
 
-    return [Stock(d['name'], d['shares'], d['price']) for d in portdicts]
+    portfolio = [Stock(d['name'], d['shares'], d['price']) for d in portdicts]
 
+    return Portfolio(portfolio)
 
 # Exercise 2.6
 
