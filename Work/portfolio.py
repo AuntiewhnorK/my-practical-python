@@ -1,6 +1,6 @@
 class Portfolio:
     """
-    Container class 
+    Container class
     Layer around a portfolio list
     """
 
@@ -15,10 +15,11 @@ class Portfolio:
     def __len__(self):
         return len(self._holdings)
 
-    def __getitem__(self, index):
+    def __getitem__(self, index):  # index like a list
+        # portfolio[number]
         return self._holdings[index]
 
-    def __contains__(self, name):
+    def __contains__(self, name):  # check 'item' in portfolio
         return any([s.name == name for s in self._holdings])
 
     @property
