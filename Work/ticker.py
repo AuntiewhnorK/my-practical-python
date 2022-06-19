@@ -48,6 +48,7 @@ def parse_stock_data(lines):
     return rows
 
 
+'''
 def filter_symbols(rows, names):
     """
     Filter rows based on user argument
@@ -55,6 +56,7 @@ def filter_symbols(rows, names):
     for row in rows:
         if row["name"] in names:
             yield row
+'''
 
 
 def ticker(portfile, logfile, fmt):
@@ -65,7 +67,10 @@ def ticker(portfile, logfile, fmt):
     portfolio = report2.read_portfolio(portfile)
     lines = follow(logfile)
     rows = parse_stock_data(lines)
-    rows = filter_symbols(rows, portfolio)
+    # rows = filter_symbols(rows, portfolio)
+
+    # generator expression - equal to filter_symbols func
+    rows = (row for row in rows if row["name"] in portfolio)
     formatter = tableformat.create_formatter(fmt)
     formatter.headings(["Name", "Price", "Change"])
     for row in rows:
