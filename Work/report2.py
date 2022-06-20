@@ -17,16 +17,26 @@ import tableformat
 # Exercise 2.5
 
 
-def read_portfolio(file):
+def read_portfolio(file, **options):
     """Returns portfolio in a list of dictionaries"""
 
+    # use ** to expose fileparse.parse_csv() options
     with open(file) as lines:
         portdicts = parse_csv(
-            lines, select=['name', 'shares', 'price'], types=[str, int, float])
+            lines,
+            select=["name", "shares", "price"],
+            types=[str, int, float],
+            **options,
+        )
 
-    portfolio = [Stock(d['name'], d['shares'], d['price']) for d in portdicts]
+    # portfolio = [Stock(d['name'], d['shares'], d['price']) for d in portdicts]
 
+    # use **, keyword variable arguments
+    # instead of explict dict[key] call
+
+    portfolio = [Stock(**d) for d in portdicts]
     return Portfolio(portfolio)
+
 
 # Exercise 2.6
 
@@ -69,13 +79,13 @@ def print_report(report, formatter):
     """
     Prints out a table
     """
-    formatter.headings(['Name', 'Shares', 'Price', 'Change'])
+    formatter.headings(["Name", "Shares", "Price", "Change"])
     for names, shares, price, change in report:
-        rowdata = [names, str(shares), f'{price:0.2f}', f'{change:0.2f}']
+        rowdata = [names, str(shares), f"{price:0.2f}", f"{change:0.2f}"]
         formatter.row(rowdata)
 
 
-def portfolio_report(portfolio_filename, prices_filename, fmt='txt'):
+def portfolio_report(portfolio_filename, prices_filename, fmt="txt"):
     """
     function for report printing
     """
@@ -93,12 +103,13 @@ def portfolio_report(portfolio_filename, prices_filename, fmt='txt'):
 
 def main(arguments):
     if len(arguments) != 4:
-        raise SystemExit(f'Usage: {arguments[0]} ' 'portfile pricefile format')
+        raise SystemExit(f"Usage: {arguments[0]} " "portfile pricefile format")
 
     # single function call for reporting
     portfolio_report(arguments[1], arguments[2], arguments[3])
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     import sys
+
     main(sys.argv)

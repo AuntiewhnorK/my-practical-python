@@ -9,8 +9,9 @@ Last Edited: 05/07/2022
 import csv
 
 
-def parse_csv(lines, select=None, types=None, has_headers=True,
-              delimit=',', silence_errors=True):
+def parse_csv(
+    lines, select=None, types=None, has_headers=True, delimit=",", silence_errors=False
+):
     """
     Parse CSV file into a list of records.
     """
@@ -20,7 +21,7 @@ def parse_csv(lines, select=None, types=None, has_headers=True,
     # Raise error if select and has_headers=False is passed
 
     if select and not has_headers:
-        raise RuntimeError('select argument needs column headers')
+        raise RuntimeError("select argument needs column headers")
 
     if has_headers:
         headers = next(rows)
