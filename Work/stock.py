@@ -1,11 +1,17 @@
+from typedproperty import String, Integer, Float
+
+
 class Stock:
     """
     Represents a single holding of stock
     cost: returns the cost of stock
     sell: sell an amount of shares
     """
+
     # restrict attributes
-    __slots__ = ('name', '_shares', 'price')
+    name = String("name")
+    shares = Integer("shares")
+    price = Float("price")
 
     def __init__(self, name, shares, price):
         self.name = name
@@ -13,17 +19,7 @@ class Stock:
         self.price = price
 
     def __repr__(self):
-        return f'Stock({self.name}, {self.shares}, {self.price})'
-
-    @property
-    def shares(self):
-        return self._shares  # private attribute
-
-    @shares.setter
-    def shares(self, value):
-        if not isinstance(value, int):  # check if attribute is integer
-            raise TypeError('Expected integer')
-        self._shares = value
+        return f"Stock({self.name}, {self.shares}, {self.price})"
 
     @property
     def cost(self):

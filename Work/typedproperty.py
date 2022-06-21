@@ -20,3 +20,17 @@ def typedproperty(name, expected_type):
         setattr(self, private_name, value)
 
     return prop
+
+
+# definitions for checking str, int, float types
+# orignally was x = lambda name: typedproperty(name, str)
+def String(name):
+    return typedproperty(name, str)
+
+
+def Integer(name):
+    return typedproperty(name, int)
+
+
+def Float(name):
+    return typedproperty(name, float)
