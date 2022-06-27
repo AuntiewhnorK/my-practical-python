@@ -15,7 +15,7 @@ def timethis(func):  # decorator
     # wrapper to count execution time in seconds
     def wrapper(*args, **kwargs):
         start = time.time()
-        run = func(*args, **kwargs)
+        func(*args, **kwargs)  # run func
         end = time.time()
         print(f"{func.__module__}.{func.__name__}: {end-start:2f} seconds to execute")
 
