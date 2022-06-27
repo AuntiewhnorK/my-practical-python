@@ -67,7 +67,6 @@ def ticker(portfile, logfile, fmt):
     portfolio = report2.read_portfolio(portfile)
     lines = follow(logfile)
     rows = parse_stock_data(lines)
-    # rows = filter_symbols(rows, portfolio)
 
     # generator expression - equal to filter_symbols func
     rows = (row for row in rows if row["name"] in portfolio)

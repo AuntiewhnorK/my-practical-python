@@ -3,7 +3,7 @@ Practical Python - Tuples, Dictionaries, Functions
 
 Auntiewhnor Kpolie
 Created: 04/23/2022
-Last Edited: 05/08/2022
+Last Edited: 06/26/2022
 
 Defines a function that opens a
 portfolio file and prices file
@@ -14,31 +14,18 @@ from fileparse import parse_csv
 from stock import Stock
 import tableformat
 
-# Exercise 2.5
-
 
 def read_portfolio(file, **options):
     """Returns portfolio in a list of dictionaries"""
 
     # use ** to expose fileparse.parse_csv() options
     with open(file) as lines:
-        portdicts = parse_csv(
-            lines,
-            select=["name", "shares", "price"],
-            types=[str, int, float],
-            **options,
-        )
-
-    # portfolio = [Stock(d['name'], d['shares'], d['price']) for d in portdicts]
+        portdicts = Portfolio.from_csv(lines, **options)
 
     # use **, keyword variable arguments
     # instead of explict dict[key] call
 
-    portfolio = [Stock(**d) for d in portdicts]
-    return Portfolio(portfolio)
-
-
-# Exercise 2.6
+    return Portfolio(portdicts)
 
 
 def read_prices(file):
@@ -48,9 +35,6 @@ def read_prices(file):
 
     with open(file) as lines:
         return dict(parse_csv(lines, types=[str, float], has_headers=False))
-
-
-# Exercise 2.7, 2.9
 
 
 def make_report(stock_portfolio, stock_price):
@@ -74,7 +58,6 @@ def make_report(stock_portfolio, stock_price):
     return report_list
 
 
-# Exercise 3.2
 def print_report(report, formatter):
     """
     Prints out a table
