@@ -94,5 +94,7 @@ def main(arguments):
 
 if __name__ == "__main__":
     import sys
+    import logging
 
     main(sys.argv)
+    logging.basicConfig(filemode="w", level=logging.DEBUG)

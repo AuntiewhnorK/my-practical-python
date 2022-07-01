@@ -7,6 +7,9 @@ Last Edited: 05/07/2022
 
 """
 import csv
+import logging
+
+log = logging.getLogger(__name__)
 
 
 def parse_csv(
@@ -19,7 +22,6 @@ def parse_csv(
     rows = csv.reader(lines, delimiter=delimit)
 
     # Raise error if select and has_headers=False is passed
-
     if select and not has_headers:
         raise RuntimeError("select argument needs column headers")
 
@@ -39,19 +41,19 @@ def parse_csv(
     for rownum, row in enumerate(rows, start=1):
         if not row:  # Skip rows with no data
             continue
+
         # filter row on selected columns
         if indices:
             row = [row[index] for index in indices]
+
         # preform type conversion (ex: int('100') -> 100)
-        try:
-            if types:
+        if types:
+            try:
                 row = [func(val) for func, val in zip(types, row)]
-        except ValueError as v:
-            if silence_errors:
-                continue
-            else:
-                print(f"Row {rownum}: Couldn't parse {row}")
-                print(f"Reason: {v}")
+            except ValueError as v:
+                if not silence_errors:
+                    log.warning(f"Row {rownum}: Couldn't parse {row}")
+                    log.debug(f"Reason: {v}")
                 continue
 
         if has_headers and headers != "":
