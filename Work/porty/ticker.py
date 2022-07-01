@@ -6,9 +6,9 @@ Created: 6/17/2022
 
 Reads in portfolio csv file and outputs rows
 """
-import report2
-import tableformat
-from follow import follow
+from . import report2
+from . import tableformat
+from .follow import follow
 import csv
 
 

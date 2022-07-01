@@ -9,10 +9,10 @@ Defines a function that opens a
 portfolio file and prices file
 and prints a report.
 """
-from portfolio import Portfolio
-from fileparse import parse_csv
-from stock import Stock
-import tableformat
+from .portfolio import Portfolio
+from .fileparse import parse_csv
+from .stock import Stock
+from . import tableformat
 
 
 def read_portfolio(file, **options):

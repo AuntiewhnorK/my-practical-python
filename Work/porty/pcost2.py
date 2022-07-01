@@ -13,7 +13,7 @@ Exercise 1.30 - make pcost.py a function
 """
 import csv
 import sys
-from report2 import read_portfolio
+from .report2 import read_portfolio
 
 
 def portfolio_cost(filename):
@@ -29,11 +29,12 @@ def portfolio_cost(filename):
 # ex: python pcost.py Data/portfolio.csv
 def main(arguments):
     if len(arguments) != 2:
-        raise SystemExit(f'Usage: {arguments[0]} ' 'portfolio_file')
+        raise SystemExit(f"Usage: {arguments[0]} " "portfolio_file")
     file = arguments[1]
     print(f"Total cost {portfolio_cost(file)}")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     import sys
+
     main(sys.argv)
