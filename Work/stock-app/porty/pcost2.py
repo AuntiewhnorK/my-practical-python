@@ -11,7 +11,7 @@ cost to purchase all the shares in the portfolio.
 
 Exercise 1.30 - make pcost.py a function
 """
-import csv
+# import csv
 import sys
 from .report2 import read_portfolio
 

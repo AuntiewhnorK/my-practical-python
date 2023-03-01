@@ -11,7 +11,8 @@ and prints a report.
 """
 from .portfolio import Portfolio
 from .fileparse import parse_csv
-from .stock import Stock
+
+# from .stock import Stock
 from . import tableformat
 
 

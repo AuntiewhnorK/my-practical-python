@@ -23,22 +23,22 @@ def follow(file):
 
     while True:
         line = f.readline()
-        if line == '':
+        if line == "":
             time.sleep(0.1)  # stop for 0.1 seconds, then try again
             continue
         yield line
 
 
-if __name__ == '__main__':
-    import report2
+if __name__ == "__main__":
+    from . import report2
 
     # information for stocks only in this csv
-    portfolio = report2.read_portfolio('Data/portfolio.csv')
+    portfolio = report2.read_portfolio("Data/portfolio.csv")
 
-    for line in follow('Data/stocklog.csv'):
-        fields = line.split(',')
+    for line in follow("Data/stocklog.csv"):
+        fields = line.split(",")
         name = fields[0].strip('"')
         price = float(fields[1])
         change = float(fields[4])
         if name in portfolio:
-            print(f'{name:>10s} {price:>10.2f} {change:>10.2f}')
+            print(f"{name:>10s} {price:>10.2f} {change:>10.2f}")
